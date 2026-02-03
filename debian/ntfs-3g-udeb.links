@@ -1,1 +1,2 @@
-/sbin/mount.ntfs-3g	/sbin/mount.ntfs
+/usr/sbin/mount.ntfs-3g	/usr/sbin/mount.ntfs
+/usr/bin/ntfs-3g	/usr/sbin/mount.ntfs-3g

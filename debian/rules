@@ -11,7 +11,7 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-SONAME = $(shell objdump -p debian/tmp/lib/*/libntfs-3g.so.*.* | awk -Fso. '/SONAME/ { print $$2 }')
+SONAME = $(shell objdump -p debian/tmp/usr/lib/*/libntfs-3g.so.*.* | awk -Fso. '/SONAME/ { print $$2 }')
 
 ifeq ($(DEB_HOST_ARCH_OS), linux)
 CONFIGURE_FLAGS = --enable-posix-acls
@@ -24,7 +24,7 @@ upstream:
 	dh ${@}
 
 override_dh_auto_configure:
-	dh_auto_configure -- --exec-prefix=/ --enable-crypto \
+	dh_auto_configure -- --exec-prefix=/usr --enable-crypto \
 		--enable-extras --enable-xattr-mappings \
 		--enable-quarantined --disable-ldconfig \
 		--enable-mount-helper --with-fuse=internal \
@@ -33,13 +33,10 @@ override_dh_auto_configure:
 override_dh_auto_install:
 	dh_auto_install
 
-	# moving shlib to /
-	mkdir -p debian/tmp/lib/$(DEB_HOST_MULTIARCH)
-	mv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.so.* debian/tmp/lib/$(DEB_HOST_MULTIARCH)
-
-	# moving ntfsdecrypt, depends on /usr
-	mkdir -p debian/tmp/usr/bin
-	mv debian/tmp/bin/ntfsdecrypt debian/tmp/usr/bin
+	# remove symlinks, will recreate them in /usr/sbin using dh_link
+	rm debian/tmp/sbin/mount.ntfs-3g
+	rm debian/tmp/sbin/mount.lowntfs-3g
+	rmdir debian/tmp/sbin
 
 	# adding initramfs-tools integration
 	install -D -m 0755 debian/local/ntfs-3g.hook debian/ntfs-3g/usr/share/initramfs-tools/hooks/ntfs_3g
@@ -55,29 +52,29 @@ override_dh_auto_install:
 
 	# removing rpath
 	for _PROGRAM in \
-		bin/lowntfs-3g \
-		bin/ntfs-3g \
-		bin/ntfs-3g.probe \
-		bin/ntfscat \
-		bin/ntfscluster \
-		bin/ntfscmp \
-		bin/ntfsck \
-		bin/ntfsdump_logfile \
-		bin/ntfsfix \
-		bin/ntfsinfo \
-		bin/ntfsls \
-		bin/ntfsmftalloc \
-		bin/ntfsmove \
-		bin/ntfssecaudit \
-		bin/ntfstruncate \
-		bin/ntfsusermap \
-		bin/ntfswipe \
-		sbin/mkntfs \
-		sbin/ntfsclone \
-		sbin/ntfscp \
-		sbin/ntfslabel \
-		sbin/ntfsresize \
-		sbin/ntfsundelete \
+		usr/bin/lowntfs-3g \
+		usr/bin/ntfs-3g \
+		usr/bin/ntfs-3g.probe \
+		usr/bin/ntfscat \
+		usr/bin/ntfscluster \
+		usr/bin/ntfscmp \
+		usr/bin/ntfsck \
+		usr/bin/ntfsdump_logfile \
+		usr/bin/ntfsfix \
+		usr/bin/ntfsinfo \
+		usr/bin/ntfsls \
+		usr/bin/ntfsmftalloc \
+		usr/bin/ntfsmove \
+		usr/bin/ntfssecaudit \
+		usr/bin/ntfstruncate \
+		usr/bin/ntfsusermap \
+		usr/bin/ntfswipe \
+		usr/sbin/mkntfs \
+		usr/sbin/ntfsclone \
+		usr/sbin/ntfscp \
+		usr/sbin/ntfslabel \
+		usr/sbin/ntfsresize \
+		usr/sbin/ntfsundelete \
 		usr/bin/ntfsdecrypt; \
 	do \
 		echo $${_PROGRAM}; \
@@ -86,9 +83,9 @@ override_dh_auto_install:
 
 	# moving undocumented programs to ntfs-3g-dev
 	mkdir -p debian/ntfs-3g-dev/usr/bin
-	mv debian/tmp/bin/ntfsdump_logfile debian/ntfs-3g-dev/usr/bin
-	mv debian/tmp/bin/ntfsmftalloc debian/ntfs-3g-dev/usr/bin
-	mv debian/tmp/bin/ntfsck debian/ntfs-3g-dev/usr/bin
+	mv debian/tmp/usr/bin/ntfsdump_logfile debian/ntfs-3g-dev/usr/bin
+	mv debian/tmp/usr/bin/ntfsmftalloc debian/ntfs-3g-dev/usr/bin
+	mv debian/tmp/usr/bin/ntfsck debian/ntfs-3g-dev/usr/bin
 
 #override_dh_gencontrol:
 #	dh_gencontrol -- -Vntfs-3g:Provides="libntfs-3g$(SONAME)" -Vntfs-3g-udeb:Provides="libntfs-3g-udeb$(SONAME)"
@@ -99,14 +96,14 @@ override_dh_installchangelogs:
 override_dh_link:
 	rm -rf debian/ntfs-3g-dev/usr/share/doc
 
-	# correcting symlink target
-	dh_link -pntfs-3g-dev lib/$(DEB_HOST_MULTIARCH)/$$(basename $$(readlink debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libntfs-3g.so)) usr/lib/$(DEB_HOST_MULTIARCH)/libntfs-3g.so
-
 	dh_link --remaining-packages
 
+execute_before_dh_installdeb:
+	chmod 4755 debian/ntfs-3g/usr/bin/ntfs-3g
+
 override_dh_makeshlibs:
-	dh_makeshlibs --add-udeb=ntfs-3g-udeb -Vlibntfs-3g$(SONAME)
+	dh_makeshlibs --add-udeb=ntfs-3g-udeb -Vlibntfs-3g$(SONAME)t64
 
 .PHONY: override_dh_auto_configure override_dh_auto_install \
-	override_dh_installchangelogs \
-	override_dh_link override_dh_makeshlibs
+	override_dh_installchangelogs override_dh_link \
+	execute_before_dh_installdeb override_dh_makeshlibs

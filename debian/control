@@ -2,28 +2,28 @@ Source: ntfs-3g
 Section: otherosfs
 Priority: optional
 Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
-Build-Depends:
+Build-Depends: dpkg-dev (>= 1.22.5),
  debhelper-compat (= 13),
  chrpath,
  libgcrypt20-dev,
  libgpg-error-dev,
  libgnutls28-dev,
- pkg-config
-Standards-Version: 4.6.0
+ pkgconf
+Standards-Version: 4.7.0
 Homepage: https://github.com/tuxera/ntfs-3g/wiki
+Rules-Requires-Root: binary-targets
 
 Package: ntfs-3g
 Section: otherosfs
 Architecture: linux-any kfreebsd-any
-Pre-Depends:
- ${misc:Pre-Depends},
- fuse3 [linux-any],
- fuse4bsd [kfreebsd-any],
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
- libntfs-3g89 (= ${binary:Version})
+ libntfs-3g89t64 (= ${binary:Version}),
+ fuse3 [linux-any],
+ fuse4bsd [kfreebsd-any]
 #Provides: ${ntfs-3g:Provides}
+Suggests: fdisk
 Description: read/write NTFS driver for FUSE
  NTFS-3G uses FUSE (Filesystem in Userspace) to provide support for the NTFS
  filesystem used by Microsoft Windows.
@@ -34,7 +34,7 @@ Architecture: linux-any kfreebsd-any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
- libntfs-3g89 (= ${binary:Version}),
+ libntfs-3g89t64 (= ${binary:Version}),
  ntfs-3g (= ${binary:Version})
 Description: read/write NTFS driver for FUSE (development)
  NTFS-3G uses FUSE (Filesystem in Userspace) to provide support for the NTFS
@@ -42,7 +42,10 @@ Description: read/write NTFS driver for FUSE (development)
  .
  This package contains the development files.
 
-Package: libntfs-3g89
+Package: libntfs-3g89t64
+Provides: ${t64:Provides}
+Replaces: libntfs-3g89
+Conflicts: libntfs-3g89 (<< ${source:Version})
 Section: libs
 Architecture: linux-any kfreebsd-any
 Multi-Arch: same

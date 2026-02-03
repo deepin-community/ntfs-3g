@@ -1,8 +1,51 @@
-ntfs-3g (1:2022.10.3-1deepin1) unstable; urgency=medium
+ntfs-3g (1:2022.10.3-5) unstable; urgency=medium
 
-  * feat: add sw64 support.
+  * Move fuse to simple dependency (closes: #983359).
+  * Suggest fdisk on ntfs-3g (closes: #872134).
 
- -- hudeng <hudeng@deepin.org>  Tue, 03 Jun 2025 10:58:39 +0800
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 05 Oct 2024 09:45:48 +0200
+
+ntfs-3g (1:2022.10.3-4) unstable; urgency=medium
+
+  [ Chris Hofstaedtler <zeha@debian.org> ]
+  * Drop ntfs-3g.postinst, which previously checked a statoverride for another
+    package. In the best case it was prone to not working because of timing
+    conditions, and in the worst case it did nothing.
+    Instead, install ntfs-3g mode 4755 in data.tar, set Rules-Requires-Root:
+    binary-targets (closes: #1060229).
+  * Drop effectively empty ntfs-3g.postrm.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 19 Aug 2024 12:50:21 +0200
+
+ntfs-3g (1:2022.10.3-3) unstable; urgency=medium
+
+  * Fix use-after-free in 'ntfs_uppercase_mbs' (CVE-2023-52890)
+    (closes: #1073248).
+  * Update Standards-Version to 4.7.0 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 16 Jun 2024 07:12:14 +0200
+
+ntfs-3g (1:2022.10.3-2) unstable; urgency=medium
+
+  [ Helmut Grohne and Chris Hofstaedtler ]
+  * Move files to /usr and mitigate file loss (closes: #945923, #1059415).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Tue, 26 Mar 2024 17:32:16 +0100
+
+ntfs-3g (1:2022.10.3-1.2) unstable; urgency=medium
+
+  [ Zixing Liu ]
+  * Non-maintainer upload.
+  * d/rules: add t64 suffix to the dh_makeshlib command. (Closes: #1066074)
+
+ -- Benjamin Drung <bdrung@debian.org>  Thu, 14 Mar 2024 13:21:45 +0100
+
+ntfs-3g (1:2022.10.3-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename libraries for 64-bit time_t transition.  Closes: #1063180
+
+ -- Benjamin Drung <bdrung@debian.org>  Fri, 01 Mar 2024 12:40:22 +0000
 
 ntfs-3g (1:2022.10.3-1) unstable; urgency=high
 
