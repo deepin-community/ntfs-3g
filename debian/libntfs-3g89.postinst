@@ -5,7 +5,7 @@ set -e
 # begin-remove-after: released:trixie
 if test "$1" = configure; then
 	for f in libntfs-3g.so.89 libntfs-3g.so.89.0.0; do
-		dpkg-divert --no-rename --package libntfs-3g89t64 --divert "/lib/#DEB_HOST_MULTIARCH#/$f.usr-is-merged" --remove "/lib/#DEB_HOST_MULTIARCH#/$f"
+		dpkg-divert --no-rename --package libntfs-3g89 --divert "/lib/#DEB_HOST_MULTIARCH#/$f.usr-is-merged" --remove "/lib/#DEB_HOST_MULTIARCH#/$f"
 	done
 fi
 # end-remove-after
