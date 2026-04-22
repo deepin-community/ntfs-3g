@@ -1,4 +1,3 @@
-bin/ntfs-3g
-lib/*/*.so.*
-sbin/mount.*
-sbin/ntfsresize
+usr/bin/ntfs-3g
+usr/lib/*/*.so.*
+usr/sbin/ntfsresize
