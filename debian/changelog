@@ -1,3 +1,10 @@
+ntfs-3g (1:2022.10.3-5+deb13u1deepin1) unstable; urgency=medium
+
+  * Revert changes around 64-bit time_t transition.
+  * 0001-deepin-sw_64-support.diff
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Wed, 22 Apr 2026 17:33:11 +0800
+
 ntfs-3g (1:2022.10.3-5+deb13u1) trixie-security; urgency=high
 
   * Non-maintainer upload by the Security Team.
