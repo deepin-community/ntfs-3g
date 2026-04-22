@@ -2,7 +2,7 @@ Source: ntfs-3g
 Section: otherosfs
 Priority: optional
 Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
-Build-Depends: dpkg-dev (>= 1.22.5),
+Build-Depends:
  debhelper-compat (= 13),
  chrpath,
  libgcrypt20-dev,
@@ -19,7 +19,7 @@ Architecture: linux-any kfreebsd-any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
- libntfs-3g89t64 (= ${binary:Version}),
+ libntfs-3g89 (= ${binary:Version}),
  fuse3 [linux-any],
  fuse4bsd [kfreebsd-any]
 #Provides: ${ntfs-3g:Provides}
@@ -34,7 +34,7 @@ Architecture: linux-any kfreebsd-any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
- libntfs-3g89t64 (= ${binary:Version}),
+ libntfs-3g89 (= ${binary:Version}),
  ntfs-3g (= ${binary:Version})
 Description: read/write NTFS driver for FUSE (development)
  NTFS-3G uses FUSE (Filesystem in Userspace) to provide support for the NTFS
@@ -42,10 +42,7 @@ Description: read/write NTFS driver for FUSE (development)
  .
  This package contains the development files.
 
-Package: libntfs-3g89t64
-Provides: ${t64:Provides}
-Replaces: libntfs-3g89
-Conflicts: libntfs-3g89 (<< ${source:Version})
+Package: libntfs-3g89
 Section: libs
 Architecture: linux-any kfreebsd-any
 Multi-Arch: same
