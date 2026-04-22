@@ -1,4 +1,6 @@
-/sbin/mount.ntfs-3g			/sbin/mount.ntfs
+/usr/sbin/mount.ntfs-3g			/usr/sbin/mount.ntfs
+/usr/bin/ntfs-3g	/usr/sbin/mount.ntfs-3g
+/usr/bin/lowntfs-3g	/usr/sbin/mount.lowntfs-3g
 
 /usr/share/man/man8/ntfs-3g.8.gz	/usr/share/man/man8/mount.ntfs.8.gz
 /usr/share/man/man8/ntfs-3g.8.gz	/usr/share/man/man8/lowntfs-3g.8.gz
