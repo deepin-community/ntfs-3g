@@ -1,9 +1,11 @@
-ntfs-3g (1:2022.10.3-5+deb13u1deepin1) unstable; urgency=medium
+ntfs-3g (1:2022.10.3-5+deb13u2) trixie-security; urgency=high
 
-  * Revert changes around 64-bit time_t transition.
-  * 0001-deepin-sw_64-support.diff
+  * Non-maintainer upload by the Security Team.
+  * Fix multiple vulnerabilities (CVE-2026-42616, CVE-2026-42617,
+    CVE-2026-42618, CVE-2026-46569, CVE-2026-46570, CVE-2026-46571,
+    CVE-2026-46572, CVE-2026-56135, CVE-2026-56136)
 
- -- Tianyu Chen <sweetyfish@deepin.org>  Wed, 22 Apr 2026 17:33:11 +0800
+ -- Salvatore Bonaccorso <carnil@debian.org>  Wed, 15 Jul 2026 07:02:26 +0200
 
 ntfs-3g (1:2022.10.3-5+deb13u1) trixie-security; urgency=high
 

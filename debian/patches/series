@@ -1,3 +1,9 @@
 Fix_use-after-free_in_ntfs_uppercase_mbs.patch
 ntfs-3g_2022.10.3-cve_2026-02.patch
-0001-deepin-sw_64-support.diff
+CVE-2026-42618.patch
+CVE-2026-42616.patch
+CVE-2026-42617_CVE-2026-46572_CVE-2026-56136.patch
+CVE-2026-46569.patch
+CVE-2026-46571.patch
+CVE-2026-46570.patch
+CVE-2026-56135.patch
