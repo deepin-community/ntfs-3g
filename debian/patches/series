@@ -3,3 +3,4 @@ ntfs-3g_2022.10.3-cve_2026-02.patch
 0001-deepin-sw_64-support.diff
 CVE-2026-42618.patch
 CVE-2026-42616.patch
+CVE-2026-46572.patch
