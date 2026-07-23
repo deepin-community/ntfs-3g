@@ -1,3 +1,9 @@
+ntfs-3g (1:2022.10.3-5+deb13u1deepin8) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-56135
+
+ -- deepin-ci-robot <packages@deepin.org>  Thu, 23 Jul 2026 18:26:11 +0800
+
 ntfs-3g (1:2022.10.3-5+deb13u1deepin7) unstable; urgency=medium
 
   * fix(cve): CVE-2026-42617
