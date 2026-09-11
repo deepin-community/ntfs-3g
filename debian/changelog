@@ -1,17 +1,35 @@
-ntfs-3g (1:2022.10.3-5+deb13u1deepin1) unstable; urgency=medium
+ntfs-3g (1:2026.7.7-2) unstable; urgency=medium
 
-  * Revert changes around 64-bit time_t transition.
-  * 0001-deepin-sw_64-support.diff
+  * Upload to Sid.
+  * Update copyright file.
 
- -- Tianyu Chen <sweetyfish@deepin.org>  Wed, 22 Apr 2026 17:33:11 +0800
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 19 Jul 2026 13:36:46 +0200
 
-ntfs-3g (1:2022.10.3-5+deb13u1) trixie-security; urgency=high
+ntfs-3g (1:2026.7.7-1) experimental; urgency=medium
 
-  * Non-maintainer upload by the Security Team.
-  * acls.c: Fix heap buffer overflow in 'ntfs_build_permissions_posix'
-    (CVE-2026-40706)
+  * New upstream release (closes: #1142144):
+    - fixes CVE-2026-42616: heap buffer overflow in cat(),
+    - fixes CVE-2026-42617: heap buffer overflow in ntfs_ir_to_ib(),
+    - fixes CVE-2026-42618: heap buffer overflow in ntfs_decompress(),
+    - fixes CVE-2026-46569: missing range check in ntfs_ib_copy_tail(),
+    - fixes CVE-2026-46570: heap memory corruption in ntfs_index_walk_down(),
+    - fixes CVE-2026-46571: out of bounds read in ntfs_fix_file_name(),
+    - fixes CVE-2026-46572: heap buffer overflow in ntfs_ib_cut_tail(),
+    - fixes CVE-2026-56135: heap buffer overflow in build_inherited_id(),
+    - fixes CVE-2026-56136: out of bounds memmove in ntfs_ir_nill().
+  * Update copyright file.
+  * Update Standards-Version to 4.7.2 .
+  * Library transition from libntfs-3g89 to libntfs-3g90 .
 
- -- Salvatore Bonaccorso <carnil@debian.org>  Thu, 16 Apr 2026 23:27:17 +0200
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Wed, 15 Jul 2026 22:16:05 +0200
+
+ntfs-3g (1:2026.2.25-1) unstable; urgency=high
+
+  * New upstream release:
+    - fixes CVE-2026-40706: heap buffer overflow in
+      ntfs_build_permissions_posix().
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 20 Apr 2026 17:21:07 +0200
 
 ntfs-3g (1:2022.10.3-5) unstable; urgency=medium
 

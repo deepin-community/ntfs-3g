@@ -560,7 +560,9 @@ static BOOL valid_acl(const ACL *pacl, unsigned int end)
 			pace = (const ACCESS_ALLOWED_ACE*)
 				&((const char*)pacl)[offace];
 			acesz = le16_to_cpu(pace->size);
-			switch (pace->type) {
+			if (acesz < sizeof(ACE_HEADER))
+				ok = FALSE;
+			else switch (pace->type) {
 			case ACCESS_ALLOWED_ACE_TYPE :
 			case ACCESS_DENIED_ACE_TYPE :
 				wantsz = ntfs_sid_size(&pace->sid) + 8;
@@ -679,6 +681,87 @@ BOOL ntfs_valid_descr(const char *securattr, unsigned int attrsz)
 	} else
 		ok = FALSE;
 	return (ok);
+}
+
+/**
+ * ntfs_inherit_acl_extra_size: compute creator SID inheritance slack
+ * @acl: ACL to scan
+ * @usid: owner SID to substitute for CREATOR_OWNER
+ * @gsid: group SID to substitute for CREATOR_GROUP
+ *
+ * Walks @acl bounded by acl->size, adding slack for ALLOW and DENY ACEs
+ * whose SID matches either creator placeholder.  ntfs_inherit_acl() can
+ * replace those placeholders by @usid or @gsid and, for directories, can
+ * also keep a verbatim copy for child inheritance.  Count the worst-case
+ * extra bytes so the inherited descriptor allocation cannot be overrun.
+ *
+ * Return: extra bytes needed, or 0 if @acl is NULL or structurally rejected.
+ */
+
+int ntfs_inherit_acl_extra_size(const ACL *acl,
+			const SID *usid, const SID *gsid)
+{
+	const ACCESS_ALLOWED_ACE *ace;
+	unsigned int off;
+	unsigned int acl_size;
+	unsigned int acesz;
+	unsigned int sidsz;
+	int usidsz;
+	int gsidsz;
+	int ownersidsz;
+	int groupsidsz;
+	int oldcnt;
+	int nace;
+	int extra;
+	BOOL usid_is_group_sid;
+
+	extra = 0;
+	if (!acl || !usid || !gsid)
+		return (0);
+	acl_size = le16_to_cpu(acl->size);
+	if (acl_size < sizeof(ACL))
+		return (0);
+	oldcnt = le16_to_cpu(acl->ace_count);
+	usidsz = ntfs_sid_size(usid);
+	gsidsz = ntfs_sid_size(gsid);
+	ownersidsz = sizeof(ownersidbytes);
+	groupsidsz = sizeof(groupsidbytes);
+	usid_is_group_sid = ntfs_same_sid(usid, groupsid);
+	off = sizeof(ACL);
+	for (nace = 0; nace < oldcnt; nace++) {
+		if (off + 8 > acl_size)
+			break;
+		ace = (const ACCESS_ALLOWED_ACE*)((const char*)acl + off);
+		acesz = le16_to_cpu(ace->size);
+		if (acesz < 8 || acesz > acl_size - off)
+			break;
+		switch (ace->type) {
+		case ACCESS_ALLOWED_ACE_TYPE :
+		case ACCESS_DENIED_ACE_TYPE :
+			if ((acesz >= 8 + sizeof(ownersidbytes))
+					&& ntfs_valid_sid(&ace->sid)) {
+				sidsz = ntfs_sid_size(&ace->sid);
+				if (sidsz <= acesz - 8) {
+					if (ntfs_same_sid(&ace->sid, ownersid))
+					{
+						extra += usidsz	- ownersidsz +
+								20;
+						if (usid_is_group_sid)
+							extra += gsidsz	-
+								groupsidsz + 20;
+					}
+					if (ntfs_same_sid(&ace->sid, groupsid))
+						extra += gsidsz	- groupsidsz +
+								20;
+				}
+			}
+			break;
+		default :
+			break;
+		}
+		off += acesz;
+	}
+	return extra;
 }
 
 /*
@@ -3716,15 +3799,38 @@ struct POSIX_SECURITY *ntfs_build_permissions_posix(
 		/*
 		 * Build a raw posix security descriptor
 		 * by just translating permissions and ids
-		 * Add 2 to the count of ACE to be able to insert
-		 * a group ACE later in access and default ACLs
-		 * and add 2 more to be able to insert ACEs for owner
-		 * and 2 more for other
+		 *
+		 * The worst case number of ACE entries consists of:
+		 * - 'acecount' ACE entries from the main loop (see below)
+		 *   iterating over the 'securattr' array.
+		 * - 1 ACE entry which may be added when creating world
+		 *   permissions if none exist.
+		 * - 1 ACE entry which may be added when setting basic owner
+		 *   permissions if none exist (both lists).
+		 * - 1 ACE entry which may be added when duplicating world
+		 *   permissions as group_obj permissions if none exist.
+		 * - 'acecount + 2' ACE entries which may be added when
+		 *   duplicating world permissions as group permissions if they
+		 *   were converted to masks and the masks are not followed by a
+		 *   group entry.
+		 * - 1 ACE entry which may be added when inserting a default
+		 *   mask if none is present and there are designated users or
+		 *   groups.
+		 *
+		 * This amounts to 2*acecnt + 6 ACE entries in the worst case.
 		 */
-	alloccnt = acecnt + 6;
+	alloccnt = 2*acecnt + 6;
 	pxdesc = (struct POSIX_SECURITY*)malloc(
 				sizeof(struct POSIX_SECURITY)
 				+ alloccnt*sizeof(struct POSIX_ACE));
+	if (!pxdesc) {
+		ntfs_log_perror("Unable to allocate %zu bytes for "
+				"POSIX_SECURITY structure",
+				(size_t)(sizeof(struct POSIX_SECURITY) +
+					alloccnt*sizeof(struct POSIX_ACE)));
+		errno = ENOMEM;
+		return NULL;
+	}
 	k = 0;
 	l = alloccnt;
 	for (i=0; i<2; i++) {
