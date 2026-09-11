@@ -1,3 +1,55 @@
+ntfs-3g (1:2022.10.3-5+deb13u1deepin9) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-46569
+  * fix(cve): CVE-2026-46570 (unknown) - [PATCH] Cap B tree depth in
+    ntfs_index_walk_down to MAX_PARENT_VCN.   Upstream:
+    https://github.com/tuxera/ntfs-
+    3g/commit/5ab37421ebbcbf33bf96876c7a034393bda05a25.patch
+
+ -- deepin-ci-robot <packages@deepin.org>  Fri, 07 Aug 2026 21:35:15 +0800
+
+ntfs-3g (1:2022.10.3-5+deb13u1deepin8) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-56135
+
+ -- deepin-ci-robot <packages@deepin.org>  Thu, 23 Jul 2026 18:26:11 +0800
+
+ntfs-3g (1:2022.10.3-5+deb13u1deepin7) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-42617
+
+ -- deepin-ci-robot <packages@deepin.org>  Tue, 21 Jul 2026 11:09:50 +0800
+
+ntfs-3g (1:2022.10.3-5+deb13u1deepin6) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-46571
+
+ -- deepin-ci-robot <packages@deepin.org>  Tue, 21 Jul 2026 10:59:49 +0800
+
+ntfs-3g (1:2022.10.3-5+deb13u1deepin5) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-46572
+
+ -- deepin-ci-robot <packages@deepin.org>  Tue, 21 Jul 2026 10:52:49 +0800
+
+ntfs-3g (1:2022.10.3-5+deb13u1deepin4) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-42616
+
+ -- deepin-ci-robot <packages@deepin.org>  Fri, 17 Jul 2026 17:03:52 +0800
+
+ntfs-3g (1:2022.10.3-5+deb13u1deepin3) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-42616
+
+ -- deepin-ci-robot <packages@deepin.org>  Fri, 17 Jul 2026 17:02:42 +0800
+
+ntfs-3g (1:2022.10.3-5+deb13u1deepin2) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-42618
+
+ -- deepin-ci-robot <packages@deepin.org>  Fri, 17 Jul 2026 16:41:14 +0800
+
 ntfs-3g (1:2022.10.3-5+deb13u1deepin1) unstable; urgency=medium
 
   * Revert changes around 64-bit time_t transition.
