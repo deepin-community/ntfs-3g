@@ -1,6 +1,10 @@
 ntfs-3g (1:2022.10.3-5+deb13u1deepin9) unstable; urgency=medium
 
   * fix(cve): CVE-2026-46569
+  * fix(cve): CVE-2026-46570 (unknown) - [PATCH] Cap B tree depth in
+    ntfs_index_walk_down to MAX_PARENT_VCN.   Upstream:
+    https://github.com/tuxera/ntfs-
+    3g/commit/5ab37421ebbcbf33bf96876c7a034393bda05a25.patch
 
  -- deepin-ci-robot <packages@deepin.org>  Fri, 07 Aug 2026 21:35:15 +0800
 
