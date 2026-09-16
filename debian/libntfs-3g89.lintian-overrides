@@ -1,4 +1,0 @@
-# begin-remove-after: released:trixie
-# DEP17 mitigation
-orphaned-diversion lib/x86_64-linux-gnu/*
-# end-remove-after

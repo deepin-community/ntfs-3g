@@ -4,18 +4,191 @@ Upstream-Contact: https://github.com/tuxera/ntfs-3g/issues
 Source: https://github.com/tuxera/ntfs-3g
 
 Files: *
-Copyright: 2000-2014 ntfs-3g Development Team
+Copyright: 2000-2013 Anton Altaparmakov
+ 2000-2014 ntfs-3g Development Team
+ 2001-2005 Richard Russon
+ 2002-2009 Szabolcs Szakacsits
+ 2003-2004 Lode Leroy
+ 2004-2005 Holger Ohmacht
+ 2004-2006 Yuval Fledel
+ 2004-2007 Yura Pakhuchiy
+ 2007-2022 Jean-Pierre Andre
+ 2009-2020 Erik Larsson
+License: GPL-2+
+
+Files: configure.ac
+Copyright: 2000-2013 Anton Altaparmakov
+ 2003 Jan Kratochvil
+ 2005-2009 Szabolcs Szakacsits
+ 2007-2008 Alon Bar-Lev
 License: GPL-2+
 
 Files: include/fuse-lite/* libfuse-lite/*
 Copyright: 2000-2013 ntfs-3g Development Team
-License: LGPL-2+
+License: LGPL-2
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published
+ by the Free Software Foundation; version 2 of the License.
+ .
+ On Debian systems, the full text of the GNU Lesser General Public License
+ version 2 can be found in the file `/usr/share/common-licenses/LGPL-2'.
+
+Files: include/fuse-lite/fuse_kernel.h
+Copyright: 2001-2007  Miklos Szeredi <miklos@szeredi.hu>
+License: GPL or BSD-2-Clause
+
+Files: include/ntfs-3g/device.h
+Copyright: 2000-2013 Anton Altaparmakov
+ 2008-2013 Tuxera Inc.
+License: GPL-2+
+
+Files: include/ntfs-3g/efs.h libntfs-3g/efs.c
+Copyright: 2009 Martin Bene
+ 2009-2010 Jean-Pierre Andre
+License: GPL-2+
+
+Files: libfuse-lite/fusermount.c
+Copyright: 2001-2007  Miklos Szeredi <miklos@szeredi.hu>
+License: GPL
+
+Files: libntfs-3g/compat.c
+Copyright: 1997-2000 by Sun Microsystems, Inc.
+ 2002 Richard Russon
+ 2002-2004 Anton Altaparmakov
+License: GPL-2+
+
+Files: libntfs-3g/compress.c
+Copyright: 2004-2005 Anton Altaparmakov
+ 2004-2006 Szabolcs Szakacsits
+ 2005 Yura Pakhuchiy
+ 2009-2014 Jean-Pierre Andre
+ 2014 Eric Biggers
+License: GPL-2+
+
+Files: libntfs-3g/ioctl.c
+Copyright: 2014 Red Hat, Inc.
+ 2014-2019 Jean-Pierre Andre
+License: GPL-2+
+
+Files: libntfs-3g/device.c
+Copyright: 1995 Theodore Ts'o
+ 2004-2013 Anton Altaparmakov
+ 2004-2006 Szabolcs Szakacsits
+ 2010      Jean-Pierre Andre
+ 2008-2013 Tuxera Inc.
+License: GPL-2+
+
+Files: libntfs-3g/unistr.c
+Copyright: 2000-2004 Anton Altaparmakov
+ 2002-2009 Szabolcs Szakacsits
+ 2008-2015 Jean-Pierre Andre
+ 2008 Bernhard Kaindl
+License: GPL-2+
+
+Files: ntfsprogs/boot.c
+Copyright:  1991 Linus Torvalds <torvalds@klaava.helsinki.fi>
+ 1992-1993 Remy Card <card@masi.ibp.fr>
+ 1993-1994 David Hudson <dave@humbug.demon.co.uk>
+ 1998 H. Peter Anvin <hpa@zytor.com>
+ 1998-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+ 2008-2014 Daniel Baumann <mail@daniel-baumann.ch>
+ 2015 Andreas Bombe <aeb@debian.org>
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ On Debian systems, the full text of the GNU General Public License
+ version 3 can be found in the file `/usr/share/common-licenses/GPL-3`.
+
+Files: ntfsprogs/mkntfs.c
+Copyright: 2000-2011 Anton Altaparmakov
+ 2001-2005 Richard Russon
+ 2002-2006 Szabolcs Szakacsits
+ 2005      Erik Sornes
+ 2007      Yura Pakhuchiy
+ 2010-2018 Jean-Pierre Andre
+License: GPL-2+
+
+Files: ntfsprogs/ntfsclone.8.in ntfsprogs/ntfsclone.c
+Copyright: 2003-2005 Richard Russon
+ 2003-2006 Szabolcs Szakacsits
+ 2004 Per Olofsson
+ 2004-2006 Anton Altaparmakov
+ 2010-2018 Jean-Pierre Andre
+License: GPL-2+
+
+Files: ntfsprogs/ntfscp.c
+Copyright: 2004-2007 Yura Pakhuchiy
+ 2005 Anton Altaparmakov
+ 2006 Hil Liao
+ 2014-2019 Jean-Pierre Andre
+License: GPL-2+
+
+Files: ntfsprogs/ntfsinfo.c
+Copyright: 2002-2004 Matthew J. Fanto
+ 2002-2006 Anton Altaparmakov
+ 2002-2005 Richard Russon
+ 2003-2006 Szabolcs Szakacsits
+ 2004-2005 Yuval Fledel
+ 2004-2007 Yura Pakhuchiy
+ 2005 Cristian Klein
+ 2011-2022 Jean-Pierre Andre
+License: GPL-2+
+
+Files: ntfsprogs/ntfslabel.c
+Copyright: 2002 Matthew J. Fanto
+ 2002-2005 Anton Altaparmakov
+ 2002-2003 Richard Russon
+ 2012-2014 Jean-Pierre Andre
+License: GPL-2+
+
+Files: ntfsprogs/ntfsls.c
+Copyright: 2003 Lode Leroy
+ 2003-2005 Anton Altaparmakov
+ 2003 Richard Russon
+ 2004 Carmelo Kintana
+ 2004 Giang Nguyen
+License: GPL-2+
 
 Files: debian/*
 Copyright: 2014-     Laszlo Boszormenyi (GCS) <gcs@debian.org>,
  2011-2014 Daniel Baumann <mail@daniel-baumann.ch>,
  2006-2010 Adam Cecile <gandalf@le-vert.net>
 License: GPL-2+
+
+License: BSD-2-Clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+ AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ OF SUCH DAMAGE.
+
+License: GPL
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 1, or (at your option)
+ any later version.
+ .
+ On Debian systems, the complete text of the GNU General Public
+ License, version 1, can be found in `/usr/share/common-licenses/GPL`.
 
 License: GPL-2+
  This program is free software: you can redistribute it and/or modify
