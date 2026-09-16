@@ -776,8 +776,20 @@ static ntfs_time mkntfs_time(void)
 
 	ts.tv_sec = 0;
 	ts.tv_nsec = 0;
-	if (!opts.use_epoch_time)
-		ts.tv_sec = time(NULL);
+	if (!opts.use_epoch_time) {
+#ifdef HAVE_GETTIMEOFDAY
+		struct timeval tv = { 0, 0, };
+
+		if (!gettimeofday(&tv, NULL)) {
+			ts.tv_sec = tv.tv_sec;
+			ts.tv_nsec = tv.tv_usec * 1000L;
+		}
+		else
+#endif
+		{
+			ts.tv_sec = time(NULL);
+		}
+	}
 	return timespec2ntfs(ts);
 }
 
@@ -4671,10 +4683,10 @@ static BOOL mkntfs_create_root_structures(void)
 				1);
 		if ((u32)(1 << -bs->clusters_per_mft_record) !=
 				g_vol->mft_record_size) {
-			free(bs);
 			ntfs_log_error("BUG: calculated clusters_per_mft_record"
 					" is wrong (= 0x%x)\n",
 					bs->clusters_per_mft_record);
+			free(bs);
 			return FALSE;
 		}
 	}
@@ -4688,11 +4700,11 @@ static BOOL mkntfs_create_root_structures(void)
 		bs->clusters_per_index_record = -g_vol->indx_record_size_bits;
 		if ((1 << -bs->clusters_per_index_record) !=
 				(s32)g_vol->indx_record_size) {
-			free(bs);
 			ntfs_log_error("BUG: calculated "
 					"clusters_per_index_record is wrong "
 					"(= 0x%x)\n",
 					bs->clusters_per_index_record);
+			free(bs);
 			return FALSE;
 		}
 	}
